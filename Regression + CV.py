@@ -30,7 +30,7 @@ df_150 = train_1000_100[0:150]
 df_150.to_csv("train-150(1000)-100.csv",index=True,sep=",")
 
 
-# Question 2: Regularization
+# Regularization
 def Calculatex(data):
     x = [[1]*(data.columns.size) for i in range(len(data))]
     i = 0
@@ -114,23 +114,23 @@ p100_10 = plotMSE("MSE Plot for 100_10 dataset",range(150),train_100_10MSE,test_
 p100_100 = plotMSE("MSE Plot for 100_100 dataset",range(150),train_100_100MSE,test_100_100MSE)
 p1000_100 = plotMSE("MSE Plot for 1000_100 dataset",range(150),train_1000_100MSE,test_1000_100MSE)
 
-# a: find lambda which give the least test set MSE
+# find lambda which give the least test set MSE
 dataset = [test_100_10MSE,test_100_100MSE,test_1000_100MSE,test_50_1000_100MSE,test_100_1000_100MSE,test_150_1000_100MSE]
 title = ["100_10","100_100","1000_100","50_1000_100","100_1000_100","150_1000_100"]
 for i in dataset:
     print("For Dataset",title[dataset.index(i)],", lambda=",i.index(np.min(i)),"gives the least MSE value",round(np.min(i),2))
 
-# b: plot lambda~(1,150) for 3 datasets
+# plot lambda~(1,150) for 3 datasets
 p100_100_2 = plotMSE("149 MSE Plot for 100_100 dataset",range(1,150),train_100_100MSE[1:150],test_100_100MSE[1:150])
 p_50_1000_100_2 = plotMSE("149 MSE Plot for 50_1000_10 dataset",range(1,150),train_50_1000_100MSE[1:150],test_50_1000_100MSE[1:150])
 p_100_1000_100_2 = plotMSE("149 MSE Plot for 100_1000_100 dataset",range(1,150),train_100_1000_100MSE[1:150],test_100_1000_100MSE[1:150])
 
-# c:
+# 
 # When lambda = 0, the model is overfitting. At this time, there are too many pramaters, 
 # the models focus on fitting training data but not linear regression, 
 # so when applying the model to test data,it will cause abnormally high variance.
 
-# Question 3 : Cross Validation:
+# Cross Validation:
 k = 10
 a = 0
 l = 1
@@ -163,23 +163,23 @@ CV_train_50_1000_100 = CV(range(50),10,df_50)
 CV_train_100_1000_100 = CV(range(50),10,df_100)
 CV_train_150_1000_100 = CV(range(50),10,df_150)
 
-# a:
+#
 dataset = [CV_train_100_10,CV_train_100_100,CV_train_1000_100,CV_train_50_1000_100,CV_train_100_1000_100,CV_train_150_1000_100]
 title = ["100_10","100_100","1000_100","50_1000_100","100_1000_100","150_1000_100"]
 for i in dataset:
     print("According to CV: For Dataset",title[dataset.index(i)],", lambda=",i.index(np.min(i)),"gives the least MSE value",round(np.min(i),2))
 
-# b: 
+# 
 # The lambda and MSE from CV and Q2(a) varied, but not by much. MSEs are kind of close
 
-# c: drawback of CV:
+# drawback of CV:
 # The computation cost is vary high, may not possible in applcation.
 
-# d: factors affacting CV:
+# factors affacting CV:
 # 1.k. How many folders we decided to split data will affact CV performance.
 # 2.How we split the data may affect performance. (if data are extreme in one set)
 
-# Question 4: Learning Curve
+# Learning Curve
 
 testdata = test_1000_100
 nlist = range(40,1001,20)
